@@ -1,0 +1,4 @@
+graphene-sqlalchemy>=1.0
+sqlalchemy
+flask
+flask-graphiql
