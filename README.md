@@ -7,6 +7,6 @@ Get stuff
 ---------
 Install the stuff you'll need:
 
-'''bash
+```bash
 pip install -r requirements.txt
-'''
+```
