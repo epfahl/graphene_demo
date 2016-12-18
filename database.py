@@ -14,15 +14,39 @@ def create(engine=ENGINE):
 
 def hydrate(session=SESSION):
     accounts = {
-        'burger kwik': m.Account(name='Burger Kwik'),
-        'chikin likin': m.Account(name='Chikin Likin'),
-        'pizza face': m.Account(name='Pizza Face'),
-        'pasta slurp': m.Account(name='Pasta Slurp')}
-    locations = {
-        'bk1': m.Location(
+        'bk': m.Account(name='Burger Kwik'),
+        'cl': m.Account(name='Chikin Likin'),
+        'pf': m.Account(name='Pizza Face')}
+    locations = [
+        m.Location(
             name='BK1',
-            address='37 Circle Ct',
-            account=accounts['burger kwik'])}
+            address='314 Circle Ct',
+            account=accounts['bk']),
+        m.Location(
+            name='BK2',
+            address='1350 American Way',
+            account=accounts['bk']),
+        m.Location(
+            name='CL1',
+            address='2718 Euler Blvd',
+            account=accounts['cl'])]
+    users = [
+        m.User(
+            name='Peter',
+            account=accounts['bk']),
+        m.User(
+            name='Paul',
+            account=accounts['bk']),
+        m.User(
+            name='Mary',
+            account=accounts['bk']),
+        m.User(
+            name='Karen',
+            account=accounts['pf']),
+        m.User(
+            name='Richard',
+            account=accounts['pf'])]
     session.add_all(accounts.values())
-    session.add_all(locations.values())
+    session.add_all(locations)
+    session.add_all(users)
     session.commit()

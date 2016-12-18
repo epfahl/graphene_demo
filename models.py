@@ -24,7 +24,6 @@ class Location(Base):
     account_id = Column(Integer, ForeignKey('accounts.id'))
     name = Column(String)
     address = Column(String)
-    account = orm.relationship('Account', backref='location')
 
 
 class User(Base):
