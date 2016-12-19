@@ -1,22 +1,26 @@
 import sqlalchemy as sa
 from sqlalchemy import orm
 import models as m
+from models import Base
 
-ENGINE = sa.create_engine('sqlite:///test.db', echo=True)
+ENGINE = sa.create_engine('sqlite:///test.db', convert_unicode=True)
 SESSION = orm.scoped_session(orm.sessionmaker(
     autocommit=False, autoflush=False, bind=ENGINE))
+Base.query = SESSION.query_property()
 
 
 def create(engine=ENGINE):
-    m.Base.metadata.drop_all(bind=engine)
-    m.Base.metadata.create_all(bind=engine)
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
 
 
-def hydrate(session=SESSION):
+def hydrate(engine=ENGINE, session=SESSION):
+
     accounts = {
         'bk': m.Account(name='Burger Kwik'),
         'cl': m.Account(name='Chikin Likin'),
         'pf': m.Account(name='Pizza Face')}
+
     locations = [
         m.Location(
             name='BK1',
@@ -30,6 +34,7 @@ def hydrate(session=SESSION):
             name='CL1',
             address='2718 Euler Blvd',
             account=accounts['cl'])]
+
     users = [
         m.User(
             name='Peter',
@@ -46,6 +51,7 @@ def hydrate(session=SESSION):
         m.User(
             name='Richard',
             account=accounts['pf'])]
+
     session.add_all(accounts.values())
     session.add_all(locations)
     session.add_all(users)
