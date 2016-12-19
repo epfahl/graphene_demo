@@ -35,3 +35,36 @@ Here's an example query you can copy and paste into the GraphiQL query window:
   }
 }
 ```
+
+The following queries also work:
+
+```bash
+{
+  account(id: 1) {
+    id
+  }
+  locations {
+    id
+    name
+    address
+  }
+}
+
+{
+  location(id: 2) {
+    id
+    name
+    address
+  }
+}
+
+{
+  user(id: 1) {
+    name
+    accountId
+  }
+}
+```
+
+In the last example, note that the model field `account_id` must be converted
+to camel case (`accountId`) in the query.
