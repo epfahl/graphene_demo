@@ -30,7 +30,7 @@ Here's an example query you can copy and paste into the GraphiQL query window:
     name
     locations {
       name 
-    	address
+      address
     }
   }
 }
