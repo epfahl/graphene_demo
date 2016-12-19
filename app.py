@@ -4,13 +4,13 @@ from flask import Flask
 from flask_graphql import GraphQLView
 
 import database as db
-from schema import schema
+import schema
 
 app = Flask(__name__)
 app.add_url_rule(
     '/graphql',
     view_func=GraphQLView.as_view(
-        'graphql', schema=schema, graphiql=True))
+        'graphql', schema=schema.Schema, graphiql=True))
 
 
 @app.teardown_appcontext

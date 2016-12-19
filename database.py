@@ -3,18 +3,18 @@ from sqlalchemy import orm
 import models as m
 from models import Base
 
-ENGINE = sa.create_engine('sqlite:///test.db', convert_unicode=True)
-SESSION = orm.scoped_session(orm.sessionmaker(
-    autocommit=False, autoflush=False, bind=ENGINE))
-Base.query = SESSION.query_property()
+Engine = sa.create_engine('sqlite:///test.db', convert_unicode=True)
+Session = orm.scoped_session(orm.sessionmaker(
+    autocommit=False, autoflush=False, bind=Engine))
+Base.query = Session.query_property()
 
 
-def create(engine=ENGINE):
+def create(engine=Engine):
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
 
-def hydrate(engine=ENGINE, session=SESSION):
+def hydrate(engine=Engine, session=Session):
 
     accounts = {
         'bk': m.Account(name='Burger Kwik'),

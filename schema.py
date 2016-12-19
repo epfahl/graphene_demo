@@ -1,40 +1,43 @@
 
 import graphene
-from graphene import relay
-from graphene_sqlalchemy import (
-    SQLAlchemyObjectType,
-    SQLAlchemyConnectionField)
+from graphene_sqlalchemy import SQLAlchemyObjectType
+
 import models as m
+import database as db
 
 
 class Account(SQLAlchemyObjectType):
 
     class Meta:
         model = m.Account
-        interfaces = (relay.Node,)
 
 
 class Location(SQLAlchemyObjectType):
 
     class Meta:
         model = m.Location
-        interfaces = (relay.Node,)
 
 
 class User(SQLAlchemyObjectType):
 
     class Meta:
         model = m.User
-        interfaces = (relay.Node,)
 
 
 class Query(graphene.ObjectType):
-    node = relay.Node.Field()
-    accounts = SQLAlchemyConnectionField(Account)
-    locations = SQLAlchemyConnectionField(Location)
-    accounts = SQLAlchemyConnectionField(Account)
+
+    accounts = graphene.List(Account)
+    locations = graphene.List(Location)
+    users = graphene.List(User)
+
+    def resolve_accounts(self, *args, **kwargs):
+        return db.Session.query(m.Account).all()
+
+    def resolve_locations(self, *args, **kwargs):
+        return db.Session.query(m.Location).all()
+
+    def resolve_users(self, *args, **kwargs):
+        return db.Session.query(m.User).all()
 
 
-schema = graphene.Schema(
-    query=Query,
-    types=[Account, Location, User])
+Schema = graphene.Schema(query=Query)
