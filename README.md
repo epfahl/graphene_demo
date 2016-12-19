@@ -20,4 +20,4 @@ In the repo directory, run
 ```
 
 then go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
-and try some queries.
+and try some queries in the graphical UI.
