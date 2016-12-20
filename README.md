@@ -22,7 +22,10 @@ In the repo directory, run
 then go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
 and try some queries in the graphical UI.
 
-Here's an example query you can copy and paste into the GraphiQL query window:
+Queries
+-------
+
+Here are example queries you can copy and past into the GraphiQL editor window:
 
 ```bash
 {
@@ -34,11 +37,7 @@ Here's an example query you can copy and paste into the GraphiQL query window:
     }
   }
 }
-```
 
-The following queries also work:
-
-```bash
 {
   account(id: 1) {
     id
@@ -66,5 +65,31 @@ The following queries also work:
 }
 ```
 
-In the last example, note that the model field `account_id` must be converted
-to camel case (`accountId`) in the query.
+In the last example, note that the field `account_id` on the `User` model must
+be converted to camel case (`accountId`) in the query.
+
+Mutations
+---------
+
+Mutations in GraphQL play the roles of PUT/POST in REST.  The following
+mutation creates a new location on the account with ID 2 and then queries for
+the location and account data on the newly created object.
+
+```bash
+mutation {
+  addLocation(accountId: 2, name: "E Coli's", address: "111 GI Tract") {
+    location {
+      id
+      account {
+        id
+        name
+      }
+      name
+      address
+    }
+  }
+}
+```
+
+The lead keyword `mutation` signals Graphene to follow the muation codepath.
+
