@@ -95,3 +95,31 @@ mutation {
 
 The lead keyword `mutation` signals Graphene to follow the muation codepath.
 
+Runtime Flexibility
+-------------------
+
+To demonstrate server-side flexibility, two new schema roots have been added:
+`add`, which adds two floats and returns a float, and `addjson`, which returns
+a JSONized payload with the input arguments and the addition.  For example,
+
+```bash
+{
+  add(x: 1.2, y: 1.3)
+}
+
+{
+  addjson(x: 1.2, y: 1.3)
+}
+```
+
+Try submitting the following query and read the helpful error message.
+
+```bash
+{
+  add(x: "1.2", y: 1.3)
+}
+```
+
+The schema dictates that the type of `x` must be a float.  Graphene validates
+the request against the schema before attempting any additional computation
+and returns an appropriate error message if the validation fails.

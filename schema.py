@@ -7,11 +7,16 @@ Notes
   variety of code generation?
 """
 
+import json
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
 import models as m
 import database as db
+
+user_funcs = {
+    'add': lambda x, y: x + y,
+    'mult': lambda x, y: x * y}
 
 
 class Account(SQLAlchemyObjectType):
@@ -92,13 +97,20 @@ class Query(graphene.ObjectType):
     location = graphene.Field(Location, id=graphene.Int())
     user = graphene.Field(User, id=graphene.Int())
 
-    def resolve_accounts(self, *args, **kwargs):
+    add = graphene.Float(
+        x=graphene.Float(),
+        y=graphene.Float())
+    addjson = graphene.types.json.JSONString(
+        x=graphene.Float(),
+        y=graphene.Float())
+
+    def resolve_accounts(self, args, context, info):
         return db.Session.query(m.Account).all()
 
-    def resolve_locations(self, *args, **kwargs):
+    def resolve_locations(self, args, context, info):
         return db.Session.query(m.Location).all()
 
-    def resolve_users(self, *args, **kwargs):
+    def resolve_users(self, args, context, info):
         return db.Session.query(m.User).all()
 
     def resolve_account(self, args, context, info):
@@ -109,6 +121,14 @@ class Query(graphene.ObjectType):
 
     def resolve_user(self, args, context, info):
         return db.Session.query(m.User).get(args.get('id'))
+
+    def resolve_add(self, args, context, info):
+        return args.get('x') + args.get('y')
+
+    def resolve_addjson(self, args, context, info):
+        x = args.get('x')
+        y = args.get('y')
+        return {'x': x, 'y': y, 'result': x + y}
 
 
 class Mutation(graphene.ObjectType):
