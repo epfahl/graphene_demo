@@ -1,7 +1,11 @@
 Small Graphene Test Project
 ===========================
 
-Demo Graphene with SQLAlchemy, SQLite, and Flask.
+This is a small demonstration of Graphene that uses
+* SQLAlchemy to model and interact with the database
+* SQLite as the database
+* Flask to provide the web server
+
 
 Get stuff
 ---------
