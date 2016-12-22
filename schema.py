@@ -5,6 +5,9 @@ Notes
 * There's an opportunity to reduce typing (and copy-pasting) for type and
   mutation classes, as well as for resolve methods in Query.  Perhaps some
   variety of code generation?
+* The filtering on features is inappropriate.  The filtering should account
+  for the context (e.g., location).  Right now, if no filter params are
+  supplied, all feature rows are returned, regardless of the location context.
 """
 
 from dateutil import parser
