@@ -15,6 +15,10 @@ import models as m
 import database as db
 
 
+def _parse_date(d):
+    return parser.parse(d).date()
+
+
 class Account(SQLAlchemyObjectType):
 
     class Meta:
@@ -136,8 +140,8 @@ class Query(graphene.ObjectType):
                 filters.append(m.Feature.name == name)
             if None not in (start_date, end_date):
                 filters.extend([
-                    m.Feature.date >= parser.parse(start_date),
-                    m.Feature.date <= parser.parse(end_date)])
+                    m.Feature.date >= _parse_date(start_date),
+                    m.Feature.date <= _parse_date(end_date)])
             return db.Session.query(m.Feature).filter(*filters)
 
     def resolve_account(self, args, context, info):
