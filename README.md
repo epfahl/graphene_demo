@@ -38,6 +38,15 @@ Go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
 and try some queries in the GraphiQL UI.  Click on the `Docs` tab in GraphiQL
 to explore the query and mutation schemas.
 
+
+## Models
+
+The demo is built around SQLAlchemy models for an `Account`, a `Location` under an account, a `User` under an account, and a `Feature` under a Location.  Appropriate foreign keys and relationships are specified in the models.  The `features` table
+reflected by the `Feature` model records a time series of named features.
+
+Feel free to play around with the models in `model.py` and the data added in `database.py'.  Add more models with deeper relationships, or include a richer data set.
+
+
 ## Queries
 
 Here are example queries you can copy and past into the GraphiQL editor window:
@@ -100,8 +109,7 @@ This returns feature data for the Location with id 1, where the feature name is
 'high' and the dates range from '2016-12-2' to '2016-12-5' (inclusive).
 
 
-Mutations
----------
+## Mutations
 
 Mutations in GraphQL play the roles of PUT/POST in REST.  The following
 mutation creates a new location on the account with id 2 and then queries for
@@ -125,8 +133,8 @@ mutation {
 
 The lead keyword `mutation` signals Graphene to follow the muation codepath.
 
-Runtime Flexibility
--------------------
+
+## Runtime Flexibility
 
 To demonstrate server-side flexibility, two new schema roots have been added:
 `add`, which adds two floats and returns a float, and `addjson`, which returns
