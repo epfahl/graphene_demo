@@ -14,7 +14,7 @@ declarative APIs.  A GraphQL API provides
 * a declarative query syntax, where the client specifies the shape and content of the requested data
 * a single endpoint that satisfies all the data needs of the client
 * self-documentation and type safety via a schema
-* the ability to build complex queries using query fragments and named variables ([http://graphql.org/learn/queries/](http://graphql.org/learn/queries/))
+* the ability to build complex queries using query fragments and named variables
 
 
 ## Get started
@@ -42,7 +42,7 @@ to explore the query and mutation schemas.
 
 Here are example queries you can copy and past into the GraphiQL editor window:
 
-```bash
+```python
 {
   accounts {
     name
@@ -86,7 +86,7 @@ this, the autocomplete feature of GraphiQL will come to the rescue.
 
 Below is a query with rich filtering on the fields of the Feature model:
 
-```bash
+```python
 {
   features(locationId: 1, name: "high", startDate: "2016-12-2", endDate: "2016-12-5") {
     name
@@ -107,7 +107,7 @@ Mutations in GraphQL play the roles of PUT/POST in REST.  The following
 mutation creates a new location on the account with id 2 and then queries for
 the location and account data on the newly created object.
 
-```bash
+```python
 mutation {
   addLocation(accountId: 2, name: "E Coli's", address: "111 GI Tract") {
     location {
@@ -133,7 +133,7 @@ To demonstrate server-side flexibility, two new schema roots have been added:
 a JSONized payload with the input arguments and the result of the addition.
 For example,
 
-```bash
+```python
 {
   add(x: 1.2, y: 1.3)
 }
@@ -145,7 +145,7 @@ For example,
 
 Try submitting the following query and read the helpful error message.
 
-```bash
+```python
 {
   add(x: "1.2", y: 1.3)
 }
