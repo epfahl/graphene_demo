@@ -1,7 +1,7 @@
 Graphene Demo
 ===========================
 
-This is a small demonstration of Graphene that uses
+This is a small *work-in-progress* demonstration of Graphene that uses
 * SQLAlchemy to model and interact with the database
 * SQLite as the database
 * Flask to provide the web server
@@ -41,8 +41,7 @@ to explore the query and mutation schemas.
 
 ## Models
 
-The demo is built around SQLAlchemy models for an `Account`, a `Location` under an account, a `User` under an account, and a `Feature` under a Location.  Appropriate foreign keys and relationships are specified in the models.  The `features` table
-reflected by the `Feature` model records a time series of named features.
+The demo is built around SQLAlchemy models for an `Account`, a `Location` under an `Account`, a `User` under an `Account`, and a `Feature` under a `Location`.  Appropriate foreign keys and relationships are specified in the models.  The `features` table reflected by the `Feature` model records a time series of named features.
 
 Feel free to play around with the models in `model.py` and the data added in `database.py'.  Add more models with deeper relationships, or include a richer data set.
 
