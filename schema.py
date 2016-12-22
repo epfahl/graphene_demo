@@ -7,16 +7,11 @@ Notes
   variety of code generation?
 """
 
-import json
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
 import models as m
 import database as db
-
-user_funcs = {
-    'add': lambda x, y: x + y,
-    'mult': lambda x, y: x * y}
 
 
 class Account(SQLAlchemyObjectType):

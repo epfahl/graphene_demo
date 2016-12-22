@@ -103,7 +103,8 @@ Runtime Flexibility
 
 To demonstrate server-side flexibility, two new schema roots have been added:
 `add`, which adds two floats and returns a float, and `addjson`, which returns
-a JSONized payload with the input arguments and the addition.  For example,
+a JSONized payload with the input arguments and the result of the addition.
+For example,
 
 ```bash
 {
