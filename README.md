@@ -85,7 +85,7 @@ Below is a query with rich filtering on the fields of the Feature model:
 }
 ```
 
-This returns feature data for the Location with ID=1, where the feature name is
+This returns feature data for the Location with id 1, where the feature name is
 'high' and the dates range from '2016-12-2' to '2016-12-5' (inclusive).
 
 
@@ -93,7 +93,7 @@ Mutations
 ---------
 
 Mutations in GraphQL play the roles of PUT/POST in REST.  The following
-mutation creates a new location on the account with ID 2 and then queries for
+mutation creates a new location on the account with id 2 and then queries for
 the location and account data on the newly created object.
 
 ```bash
