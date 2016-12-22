@@ -1,4 +1,4 @@
-Small Graphene Test Project
+Graphene Demo
 ===========================
 
 This is a small demonstration of Graphene that uses
@@ -7,16 +7,16 @@ This is a small demonstration of Graphene that uses
 * Flask to provide the web server
 
 
-Get stuff
----------
+## Get stuff
+
 Install the stuff you'll need:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Try it
-------
+## Try it
+
 In the repo directory, run
 
 ```bash
@@ -27,8 +27,7 @@ then go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
 and try some queries in the graphical UI.  Click on the `Docs` tab in GraphiQl
 to explore the query and mutation schemas.
 
-Queries
--------
+## Queries
 
 Here are example queries you can copy and past into the GraphiQL editor window:
 
