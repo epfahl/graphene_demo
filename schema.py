@@ -7,6 +7,7 @@ Notes
   variety of code generation?
 """
 
+from dateutil import parser
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
@@ -30,6 +31,12 @@ class User(SQLAlchemyObjectType):
 
     class Meta:
         model = m.User
+
+
+class Feature(SQLAlchemyObjectType):
+
+    class Meta:
+        model = m.Feature
 
 
 class AddAccount(graphene.Mutation):
@@ -87,6 +94,12 @@ class Query(graphene.ObjectType):
     accounts = graphene.List(Account)
     locations = graphene.List(Location)
     users = graphene.List(User)
+    features = graphene.List(
+        Feature,
+        location_id=graphene.Int(default_value=None),
+        name=graphene.String(default_value=None),
+        start_date=graphene.String(default_value=None),
+        end_date=graphene.String(default_value=None))
 
     account = graphene.Field(Account, id=graphene.Int())
     location = graphene.Field(Location, id=graphene.Int())
@@ -107,6 +120,25 @@ class Query(graphene.ObjectType):
 
     def resolve_users(self, args, context, info):
         return db.Session.query(m.User).all()
+
+    def resolve_features(self, args, context, info):
+        location_id = args.get('location_id')
+        name = args.get('name')
+        start_date = args.get('start_date')
+        end_date = args.get('end_date')
+        if all(x is None for x in (location_id, name, start_date, end_date)):
+            return db.Session.query(m.Feature).all()
+        else:
+            filters = []
+            if location_id is not None:
+                filters.append(m.Feature.location_id == location_id)
+            if name is not None:
+                filters.append(m.Feature.name == name)
+            if None not in (start_date, end_date):
+                filters.extend([
+                    m.Feature.date >= parser.parse(start_date),
+                    m.Feature.date <= parser.parse(end_date)])
+            return db.Session.query(m.Feature).filter(*filters)
 
     def resolve_account(self, args, context, info):
         return db.Session.query(m.Account).get(args.get('id'))

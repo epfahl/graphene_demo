@@ -69,9 +69,25 @@ Here are example queries you can copy and past into the GraphiQL editor window:
 }
 ```
 
-In the last example, note that the field `account_id` on the `User` model must
-be converted to camel case (`accountId`) in the query.  If you forget this,
-the autocomplete feature of GraphiQL will come to the rescue.
+In the last example above, note that the field `account_id` on the `User` model
+must be converted to camel case (`accountId`) in the query.  If you forget
+this, the autocomplete feature of GraphiQL will come to the rescue.
+
+Below is a query with rich filtering on the fields of the Feature model:
+
+```bash
+{
+  features(locationId: 1, name: "high", startDate: "2016-12-2", endDate: "2016-12-5") {
+    name
+    date
+    value
+  }
+}
+```
+
+This returns feature data for the Location with ID=1, where the feature name is
+'high' and the dates range from '2016-12-2' to '2016-12-5' (inclusive).
+
 
 Mutations
 ---------

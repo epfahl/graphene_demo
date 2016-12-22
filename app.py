@@ -15,7 +15,7 @@ app.add_url_rule(
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
-    db.SESSION.remove()
+    db.Session.remove()
 
 
 if __name__ == '__main__':

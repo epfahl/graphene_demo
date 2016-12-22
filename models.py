@@ -5,6 +5,9 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
+    Date,
+    Enum,
+    Float,
     ForeignKey)
 
 Base = declarative_base()
@@ -24,6 +27,7 @@ class Location(Base):
     account_id = Column(Integer, ForeignKey('accounts.id'))
     name = Column(String)
     address = Column(String)
+    features = orm.relationship('Feature', backref='location')
 
 
 class User(Base):
@@ -31,3 +35,12 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     account_id = Column(Integer, ForeignKey('accounts.id'))
     name = Column(String)
+
+
+class Feature(Base):
+    __tablename__ = 'features'
+    id = Column(Integer, primary_key=True)
+    location_id = Column(Integer, ForeignKey('locations.id'))
+    name = Column(Enum('high', 'low'))
+    date = Column(Date)
+    value = Column(Float)
