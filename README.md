@@ -14,27 +14,28 @@ declarative APIs.  A GraphQL API provides
 * a declarative query syntax, where the client specifies the shape and content of the requested data
 * a single endpoint that satisfies all the data needs of the client
 * self-documentation and type safety via a schema
-* the ability to build complex queries using query fragments and named variables [http://graphql.org/learn/queries/](http://graphql.org/learn/queries/)
+* the ability to build complex queries using query fragments and named variables ([http://graphql.org/learn/queries/](http://graphql.org/learn/queries/))
 
 
-## Get stuff
+## Get started
 
-Install the stuff you'll need:
+Clone the repo and install the stuff you'll need (there's no guarantee that
+everything you'll need is in the requirements file):
 
 ```bash
-pip install -r requirements.txt
+> git clone https://github.com/epfahl/graphene_demo
+> cd graphene_demo
+> pip install -r requirements.txt
 ```
 
-## Try it
-
-In the repo directory, run
+Now try it out by running, the app in the repo directory:
 
 ```bash
 > ./app.py
 ```
 
-then go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
-and try some queries in the graphical UI.  Click on the `Docs` tab in GraphiQl
+Go to [http://localhost:5000/graphql](http://localhost:5000/graphql)
+and try some queries in the GraphiQL UI.  Click on the `Docs` tab in GraphiQL
 to explore the query and mutation schemas.
 
 ## Queries
