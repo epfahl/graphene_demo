@@ -6,6 +6,16 @@ This is a small demonstration of Graphene that uses
 * SQLite as the database
 * Flask to provide the web server
 
+## Graphene/GraphQL highlights
+
+Graphene is a Python library that implements the GraphQL spec for buliding
+declarative APIs.  A GraphQL API provides
+
+* a declarative query syntax, where the client specifies the shape and content of the requested data
+* a single endpoint that satisfies all the data needs of the client
+* self-documentation and type safety via a schema
+* the ability to build complex queries using query fragments and named variables [http://graphql.org/learn/queries/](http://graphql.org/learn/queries/)
+
 
 ## Get stuff
 

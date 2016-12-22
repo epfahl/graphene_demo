@@ -5,9 +5,11 @@ Notes
 * There's an opportunity to reduce typing (and copy-pasting) for type and
   mutation classes, as well as for resolve methods in Query.  Perhaps some
   variety of code generation?
-* The filtering on features is inappropriate.  The filtering should account
-  for the context (e.g., location).  Right now, if no filter params are
-  supplied, all feature rows are returned, regardless of the location context.
+* The filtering on features is inappropriate.  Part of the confusion is that
+  features is also a relationship field on locations, so that we get different
+  behaviors if features is part of a sub-query vs when it is the root.  How do
+  we get the semantics right?  Does resolve features need to be added to the
+  Location type?
 """
 
 from dateutil import parser
