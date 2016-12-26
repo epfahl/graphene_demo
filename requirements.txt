@@ -3,3 +3,4 @@ sqlalchemy
 flask
 flask-graphiql
 dateutil
+cytoolz

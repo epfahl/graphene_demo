@@ -2,9 +2,6 @@
 
 Notes
 -----
-* There's an opportunity to reduce typing (and copy-pasting) for type and
-  mutation classes, as well as for resolve methods in Query.  Perhaps some
-  variety of code generation?
 * The filtering on features is inappropriate.  Part of the confusion is that
   features is also a relationship field on locations, so that we get different
   behaviors if features is part of a sub-query vs when it is the root.  How do
@@ -20,7 +17,9 @@ import models as m
 import database as db
 
 
-def _parse_date(d):
+def parse_date(d):
+    """Parse datetime-like value to datetime.date.
+    """
     return parser.parse(d).date()
 
 
@@ -145,8 +144,8 @@ class Query(graphene.ObjectType):
                 filters.append(m.Feature.name == name)
             if None not in (start_date, end_date):
                 filters.extend([
-                    m.Feature.date >= _parse_date(start_date),
-                    m.Feature.date <= _parse_date(end_date)])
+                    m.Feature.date >= parse_date(start_date),
+                    m.Feature.date <= parse_date(end_date)])
             return db.Session.query(m.Feature).filter(*filters)
 
     def resolve_account(self, args, context, info):
