@@ -24,24 +24,32 @@ def parse_date(d):
 
 
 class Account(SQLAlchemyObjectType):
+    """Account info.
+    """
 
     class Meta:
         model = m.Account
 
 
 class Location(SQLAlchemyObjectType):
+    """Location info.
+    """
 
     class Meta:
         model = m.Location
 
 
 class User(SQLAlchemyObjectType):
+    """User info.
+    """
 
     class Meta:
         model = m.User
 
 
 class Feature(SQLAlchemyObjectType):
+    """Feature time series data.
+    """
 
     class Meta:
         model = m.Feature
@@ -99,11 +107,15 @@ class AddUser(graphene.Mutation):
 
 class Query(graphene.ObjectType):
 
-    accounts = graphene.List(Account)
-    locations = graphene.List(Location)
-    users = graphene.List(User)
+    accounts = graphene.List(
+        Account, description="info on multiple accounts")
+    locations = graphene.List(
+        Location, description="info on multiple locations")
+    users = graphene.List(
+        User, description="info on multiple users")
     features = graphene.List(
         Feature,
+        description="plural feature data accessor",
         location_id=graphene.Int(default_value=None),
         name=graphene.String(default_value=None),
         start_date=graphene.String(default_value=None),
@@ -171,6 +183,3 @@ class Mutation(graphene.ObjectType):
     add_account = AddAccount.Field()
     add_location = AddLocation.Field()
     add_user = AddUser.Field()
-
-
-Schema = graphene.Schema(query=Query, mutation=Mutation)

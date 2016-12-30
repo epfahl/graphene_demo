@@ -159,4 +159,12 @@ The module `schema_auto.py` is a preliminary attempt to automatically create a q
 > ./app.py --auto
 ```
 
-and try out a few queries in the GraphiQL UI.       
+and try out a few queries in the GraphiQL UI.
+
+To try out the Relay interface, start the app with
+
+```bash
+> ./app.py --auto-relay       
+```
+
+When each root accessor is exposed as a Relay node, additional metadata is exposed about each object.  (More Relay-specific info forthcoming.)

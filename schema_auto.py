@@ -7,15 +7,6 @@ from graphene import relay
 from graphene_sqlalchemy import (
     SQLAlchemyObjectType, SQLAlchemyConnectionField)
 
-import models as m
-import database as db
-
-MODELS = (
-    m.Account,
-    m.Location,
-    m.User,
-    m.Feature)
-
 
 def _root_name(model):
     """Return the plural (append 's') lower case name of the model for the
@@ -39,10 +30,8 @@ def _type_class(model, with_relay):
         meta_interfaces = dict(interfaces=(relay.Node,))
     else:
         meta_interfaces = dict()
-    return type(
-        model.__name__,
-        (SQLAlchemyObjectType,),
-        dict(Meta=cz.merge(meta_model, meta_interfaces)))
+    meta = type("Meta", (), cz.merge(meta_model, meta_interfaces))
+    return type(model.__name__, (SQLAlchemyObjectType,), dict(Meta=meta))
 
 
 def _root(type_class, with_relay):
@@ -62,7 +51,7 @@ def _resolver_all(model, db_session):
 
 def _build_roots(models, with_relay):
     return {
-        _root_name(m): _root(_type_class(m, with_relay))
+        _root_name(m): _root(_type_class(m, with_relay), with_relay)
         for m in models}
 
 
@@ -82,6 +71,3 @@ def build_query(models, db_session, with_relay=False):
     else:
         resolvers = _build_resolvers(models, db_session)
     return type('Query', (graphene.ObjectType,), cz.merge(roots, resolvers))
-
-
-Schema = graphene.Schema(query=build_query(MODELS, db.Session))
