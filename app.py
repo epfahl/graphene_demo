@@ -42,7 +42,10 @@ def parse_args(clargs):
     parser = ArgumentParser()
     parser.add_argument(
         "--auto", default=False, action="store_true",
-        help="use automatic schema generation from models")
+        help="use automatic schema generation")
+    parser.add_argument(
+        "--auto-relay", default=False, action="store_true",
+        help="use automatic schema generation with relay interface")
     return parser.parse_args(clargs)
 
 
@@ -54,6 +57,3 @@ def main(clargs):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
-    # db.create()
-    # db.hydrate()
-    # app.run('127.0.0.1', port=5000, debug=True)
