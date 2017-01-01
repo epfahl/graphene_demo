@@ -50,9 +50,14 @@ def _resolver_all(model, db_session):
 
 
 def _build_roots(models, with_relay):
-    return {
+    model_roots = {
         _root_name(m): _root(_type_class(m, with_relay), with_relay)
         for m in models}
+    if with_relay:
+        node_root = {"node": relay.Node.Field()}
+    else:
+        node_root = {}
+    return cz.merge(model_roots, node_root)
 
 
 def _build_resolvers(models, db_session):

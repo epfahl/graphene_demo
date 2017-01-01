@@ -161,10 +161,95 @@ The module `schema_auto.py` is a preliminary attempt to automatically create a q
 
 and try out a few queries in the GraphiQL UI.
 
+
+## Relay and pagination
+
+As best I currently understand it operationally, Relay imbues GraphQL with an additional layer of abstraction.  If one imagines that the query roots provide access to nodes in a graph, Relay, in effect, exposes certain metadata on the edges, such as cursor identifiers, which can be used for pagination.  
+
 To try out the Relay interface, start the app with
 
 ```bash
 > ./app.py --auto-relay       
 ```
 
-When each root accessor is exposed as a Relay node, additional metadata is exposed about each object.  (More Relay-specific info forthcoming.)
+Now each of the plural root accessors (accounts, locations, ...) are exposed as Relay connection fields.  A query to get all the location names and address is
+
+```bash
+{
+  locations {
+    edges {
+      node {
+        id
+        name
+        address
+      }
+    }
+  }
+}
+```
+
+The default operation of Relay is to expose node identifiers as *globally unique* opaque strings.  Copy and paste the location `id` of BK1 (locationId: 1) and try a new query that retrieves data for the first 3 feature rows corresponding to that location:
+
+```bash
+{
+  node(id: "TG9jYXRpb246MQ==") {
+    id
+    ... on Location {
+      features(first: 3) {
+        edges {
+          cursor
+          node {
+            id
+            name
+            date
+            value
+            locationId
+          }
+        }
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+      }
+    }
+  }
+}
+```
+
+Don't worry about the additional syntax just yet, but pay close attention to the `cursor` field requested on each of the feature edges, as well as `pageInfo` field on the feature connection.  The `cursor` gives us an opaque identenfier for the edge object that we can reuse in subsequent queries; in particular, we can use this field for pagination.  The data returned for `pageInfo` shows us introspective data on the requested collection including the first and last cursor, and booleans that indicate whether there is a next page or previous page.
+
+To get the next three feature rows, grab the `endCursor` and slightly modify the above query to
+
+
+```bash
+{
+  node(id: "TG9jYXRpb246MQ==") {
+    id
+    ... on Location {
+      features(first: 3, after:"YXJyYXljb25uZWN0aW9uOjI=") {
+        edges {
+          cursor
+          node {
+            id
+            name
+            date
+            value
+            locationId
+          }
+        }
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+      }
+    }
+  }
+}
+```
+
+Voila! We now have pagination!  A little more baggage comes with Relay, but the addtional features may well be worth the extra typing.
+
