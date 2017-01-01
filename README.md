@@ -251,5 +251,5 @@ To get the next three feature rows, grab the `endCursor` and slightly modify the
 }
 ```
 
-Voila! We now have pagination!  A little more baggage comes with Relay, but the addtional features may well be worth the extra typing.
+Voila! We now have pagination!  Additional structure comes with Relay, but the new features may well be worth the extra typing.
 
