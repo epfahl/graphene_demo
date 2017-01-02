@@ -188,7 +188,7 @@ Now each of the plural root accessors (accounts, locations, ...) are exposed as 
 }
 ```
 
-The default operation of Relay is to expose node identifiers as *globally unique* opaque strings.  Copy and paste the location `id` of BK1 (locationId: 1) and try a new query that retrieves data for the first 3 feature rows corresponding to that location:
+The default operation of Relay is to expose node identifiers as *globally unique* opaque strings.  Copy and paste the encoded location `id` of BK1 and try a new query that retrieves data for the first 3 feature rows corresponding to the *node* occupied by that location:
 
 ```bash
 {
@@ -220,7 +220,7 @@ The default operation of Relay is to expose node identifiers as *globally unique
 
 Don't worry about the additional syntax just yet, but pay close attention to the `cursor` field requested on each of the feature edges, as well as `pageInfo` field on the feature connection.  The `cursor` gives us an opaque identenfier for the edge object that we can reuse in subsequent queries; in particular, we can use this field for pagination.  The data returned for `pageInfo` shows us introspective data on the requested collection including the first and last cursor, and booleans that indicate whether there is a next page or previous page.
 
-To get the next three feature rows, grab the `endCursor` and slightly modify the above query to
+To get the next three feature rows, add the `after` argument to the feature connection and use the value of the `endCursor` in the previous query:
 
 
 ```bash
