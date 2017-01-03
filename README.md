@@ -39,7 +39,7 @@ Go to [http://localhost:5000/graphql](http://localhost:5000/graphql) and try som
 
 The demo is built around SQLAlchemy models for an `Account`, a `Location` under an `Account`, a `User` under an `Account`, and a `Feature` under a `Location`.  Appropriate foreign keys and relationships are specified in the models.  The `features` table reflected by the `Feature` model records a time series of named features.  These models reflect a business case where one is serving a web-based product to multiple users that belong to a multi-location enterprise.
 
-Feel free to play around with the models in `model.py` and the data added in `database.py'.  Add more models with deeper relationships, or include a richer data set.
+Feel free to play around with the models in `model.py` and the data added in `database.py`.  Add more models with deeper relationships, or include a richer data set.
 
 
 ## Queries
