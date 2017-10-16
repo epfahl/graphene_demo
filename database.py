@@ -35,7 +35,7 @@ def _features(location, name, start_date, end_date):
             date=d,
             value=round(random.random(), 3))
 
-    return map(_val, _date_iter(start_date, end_date))
+    return list(map(_val, _date_iter(start_date, end_date)))
 
 
 def create(engine=Engine):
